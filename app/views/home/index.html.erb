@@ -1,0 +1,27 @@
+<main class="hero">
+  <svg class="decorative paper-plane" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 21l.65-3.89L19.77 2 22 4.23 6.89 20.35 3 21z"/>
+    <path d="M15.73 5.27 18.73 8.27"/>
+  </svg>
+
+  <svg class="decorative equation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 6h16"/>
+    <path d="M4 12h16"/>
+    <path d="M4 18h16"/>
+  </svg>
+
+  <svg class="decorative grade" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+    <path d="M2 17l10 5 10-5"/>
+    <path d="M2 12l10 5 10-5"/>
+  </svg>
+
+  <h1>Your Study Notes,<br>Reimagined</h1>
+  <p>Take better notes, study smarter, and learn faster with our AI-powered note-taking app.</p>
+  <%= link_to "/auth/google_oauth2", class: "get-started", data: { turbo: false } do %>
+    Get Started
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  <% end %>
+</main> 
