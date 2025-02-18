@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :notes, dependent: :destroy
   validates :provider, presence: true
   validates :uid, presence: true
   validates :email, presence: true, uniqueness: true

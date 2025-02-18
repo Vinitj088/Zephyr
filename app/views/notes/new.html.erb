@@ -1,0 +1,15 @@
+<div class="note-editor-container">
+  <div class="note-editor">
+    <%= form_with(model: @note, local: true, class: 'note-form') do |f| %>
+      <div class="note-header">
+        <%= f.text_field :title, placeholder: 'Untitled', class: 'note-title' %>
+        <div class="note-actions">
+          <%= f.submit 'Save', class: 'button' %>
+          <%= link_to 'Cancel', dashboard_path, class: 'button secondary' %>
+        </div>
+      </div>
+
+      <%= f.text_area :content, class: 'note-content-editor' %>
+    <% end %>
+  </div>
+</div> 

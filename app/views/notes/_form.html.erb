@@ -1,0 +1,11 @@
+<%= form_with(model: note, class: "note-form") do |f| %>
+  <div class="note-header">
+    <%= f.text_field :title, placeholder: 'Untitled', class: 'note-title' %>
+    <div class="note-actions">
+      <%= f.submit 'Save', class: 'button' %>
+      <button type="button" class="button secondary" data-action="slide-panel#close">Cancel</button>
+    </div>
+  </div>
+
+  <%= f.text_area :content, class: 'note-content-editor' %>
+<% end %> 

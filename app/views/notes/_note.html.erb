@@ -1,0 +1,22 @@
+<div class="note-card">
+  <h3><%= note.title %></h3>
+  <div class="note-content">
+    <%= truncate(note.content, length: 150, separator: ' ') %>
+  </div>
+  <div class="note-actions">
+    <%= link_to edit_note_path(note),
+                class: "button",
+                data: { 
+                  turbo_frame: "slide-panel",
+                  action: "slide-panel#open"
+                } do %>
+      Edit
+    <% end %>
+    <%= button_to note_path(note), 
+                  method: :delete,
+                  class: "button secondary",
+                  data: { turbo_confirm: "Are you sure you want to delete this note?" } do %>
+      Delete
+    <% end %>
+  </div>
+</div> 

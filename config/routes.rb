@@ -30,6 +30,11 @@ Rails.application.routes.draw do
   # Protected routes
   constraints lambda { |req| req.session[:user_id].present? } do
     get 'dashboard', to: 'dashboard#index'
+    resources :notes do
+      collection do
+        get 'new_modal', to: 'notes#new_modal'
+      end
+    end
   end
 
   # Public routes

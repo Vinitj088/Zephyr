@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  rescue ActiveRecord::RecordNotFound
+    session.delete(:user_id)
+    nil
   end
 
   def user_signed_in?
@@ -29,7 +32,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless user_signed_in?
-      redirect_to root_path, alert: 'Please sign in to continue.'
+      session[:return_to] = request.original_url
+      redirect_to login_path, alert: 'Please sign in to continue.'
     end
+  end
+
+  def after_sign_in_path
+    session.delete(:return_to) || dashboard_path
   end
 end

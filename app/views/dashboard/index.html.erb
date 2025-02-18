@@ -1,44 +1,56 @@
-<div class="dashboard-container">
-  <div class="dashboard-header">
-    <div class="header-content">
-      <h1>Welcome, <%= current_user.name %></h1>
-      <div class="user-actions">
-        <% if current_user.avatar_url %>
-          <img src="<%= current_user.avatar_url %>" alt="Profile" class="avatar">
-        <% end %>
-         
-      </div>
-    </div>
-  </div>
-
-  <div class="dashboard-content">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h3>Email</h3>
-        <p><%= current_user.email %></p>
-      </div>
-      <div class="stat-card">
-        <h3>Account Type</h3>
-        <p>Google Account</p>
-      </div>
-      <div class="stat-card">
-        <h3>Member Since</h3>
-        <p><%= current_user.created_at.strftime("%B %Y") %></p>
+<div data-controller="slide-panel">
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <div class="header-content">
+        <h1>Welcome, <%= current_user.name %></h1>
+        <div class="user-actions">
+          <%= link_to new_modal_notes_path, 
+              class: 'button primary',
+              data: { 
+                turbo_frame: "slide-panel",
+                action: "slide-panel#open"
+              } do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Note
+          <% end %>
+          <% if current_user.avatar_url %>
+            <img src="<%= current_user.avatar_url %>" alt="Profile" class="avatar">
+          <% end %>
+        </div>
       </div>
     </div>
 
-    <div class="dashboard-section">
-      <h2>Your Notes</h2>
-      <div class="empty-state">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="12" y1="18" x2="12" y2="12"/>
-          <line x1="9" y1="15" x2="15" y2="15"/>
-        </svg>
-        <p>You don't have any notes yet</p>
-        <button class="button primary">Create Your First Note</button>
-      </div>
+    <div class="dashboard-content">
+      <% if @notes.any? %>
+        <div class="notes-grid">
+          <%= render @notes %>
+        </div>
+      <% else %>
+        <div class="dashboard-section">
+          <h2>Your Notes</h2>
+          <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+            <p>You don't have any notes yet</p>
+            <%= link_to 'Create Your First Note', 
+                new_modal_notes_path, 
+                class: 'button primary',
+                data: { 
+                  turbo_frame: "slide-panel",
+                  action: "slide-panel#open"
+                } %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
+
+  <%= turbo_frame_tag "slide-panel", class: "slide-panel", data: { slide_panel_target: "panel" } %>
 </div> 
