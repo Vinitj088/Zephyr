@@ -6,6 +6,7 @@ gem "pg"
 gem "puma"
 
 # Asset Pipeline
+gem "sprockets-rails"
 gem "jsbundling-rails"
 gem "cssbundling-rails"
 gem "stimulus-rails"
