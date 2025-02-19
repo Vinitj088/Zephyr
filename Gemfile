@@ -6,30 +6,26 @@ gem "pg"
 gem "puma"
 
 # Asset Pipeline
-gem "sprockets-rails"
-
-# JavaScript and Frontend
-gem "importmap-rails"
-gem "turbo-rails"
+gem "jsbundling-rails"
+gem "cssbundling-rails"
 gem "stimulus-rails"
+gem "turbo-rails"
 
 # Views and Data
 gem "jbuilder"
 gem "redcarpet" # For markdown support
 
 # Caching and Performance
-gem "redis"
+gem "redis", ">= 4.0.1"
 gem "bootsnap", require: false
 
-
-
 group :development, :test do
-  gem "debug"
+  gem "debug", platforms: %i[ mri windows ]
 end
 
 group :development do
   gem "web-console"
-  gem "error_highlight"
+  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
