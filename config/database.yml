@@ -5,14 +5,13 @@ default: &default
 
 development:
   <<: *default
-  database: vanillarails_development
+  database: opennote_development
 
 test:
   <<: *default
-  database: vanillarails_test
+  database: opennote_test
 
 production:
   <<: *default
-  database: vanillarails_production
-  username: vanillarails
-  password: <%= ENV["VANILLARAILS_DATABASE_PASSWORD"] %> 
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>

@@ -50,3 +50,7 @@ gem "sprockets-rails"
 gem "importmap-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
+
+# Add these gems if not present
+gem "render-buildpack"
+
