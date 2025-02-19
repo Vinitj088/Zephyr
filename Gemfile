@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Core Rails gems
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 8.0.1"
 gem "pg"
 gem "puma"
 
