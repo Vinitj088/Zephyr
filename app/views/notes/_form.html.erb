@@ -7,5 +7,9 @@
     </div>
   </div>
 
-  <%= f.text_area :content, class: 'note-content-editor' %>
+  <div class="editor-container">
+    <%= f.text_area :content, 
+        data: { controller: "simplemde" },
+        class: 'note-content-editor' %>
+  </div>
 <% end %> 

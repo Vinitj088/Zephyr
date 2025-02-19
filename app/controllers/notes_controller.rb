@@ -40,6 +40,11 @@ class NotesController < ApplicationController
     redirect_to dashboard_path, notice: 'Note was successfully deleted.'
   end
 
+  def show
+    @note = current_user.notes.find(params[:id])
+    render partial: "show_modal", locals: { note: @note }
+  end
+
   private
 
   def set_note

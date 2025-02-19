@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VanillaRails</title>
+    <title>Opennote</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "turbo", type: "module" %>
-    <%= javascript_include_tag "application", type: "module" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <nav class="nav">
-      <%= link_to root_path, class: "nav-logo" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
-          <path d="M3 6h18"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        Opennote
-      <% end %>
-      <div class="nav-links">
-        <% if user_signed_in? %>
-          <%= button_to "Sign out", logout_path, method: :delete, class: "nav-link button" %>
-        <% else %>
-          <%= link_to "Features", "#", class: "nav-link" %>
-          <%= link_to "Pricing", "#", class: "nav-link" %>
-          <%= link_to "Sign in", "/auth/google_oauth2", class: "nav-link button", data: { turbo: false } %>
+    <div data-controller="debug">
+      <nav class="nav">
+        <%= link_to root_path, class: "nav-logo" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          Opennote
         <% end %>
-      </div>
-    </nav>
+        <div class="nav-links">
+          <% if user_signed_in? %>
+            <%= button_to "Sign out", logout_path, method: :delete, class: "nav-link button" %>
+          <% else %>
+            <%= link_to "Features", "#", class: "nav-link" %>
+            <%= link_to "Pricing", "#", class: "nav-link" %>
+            <%= link_to "Sign in", "/auth/google_oauth2", class: "nav-link button", data: { turbo: false } %>
+          <% end %>
+        </div>
+      </nav>
 
-    <%= yield %>
+      <%= yield %>
+    </div>
     
     <script src="/js/app.js" defer></script>
   </body>

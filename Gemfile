@@ -39,3 +39,14 @@ group :development do
 end
 
 gem "turbo-rails"
+
+gem 'redcarpet'
+
+
+gem "ruby_ui", "~> 1.0.0.pre.alpha.4", :group => :development, :require => false
+
+# Asset pipeline
+gem "sprockets-rails"
+gem "importmap-rails"
+gem "stimulus-rails"
+gem "turbo-rails"

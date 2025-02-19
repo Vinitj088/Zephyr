@@ -12,7 +12,10 @@
           </div>
 
           <div class="form-group">
-            <%= f.text_area :content, class: "form-control", placeholder: "Start writing...", rows: 10 %>
+            <%= f.text_area :content, 
+                class: "form-control", 
+                data: { controller: "simplemde" },
+                placeholder: "Start writing..." %>
           </div>
         </div>
 

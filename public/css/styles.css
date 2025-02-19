@@ -628,83 +628,151 @@ body {
 .note-card {
   background: white;
   border-radius: 8px;
-  padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
-.note-card h3 {
+.note-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.note-preview {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.note-preview h3 {
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #111827;
 }
 
 .note-content {
   color: #4b5563;
-  margin-bottom: 1rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .note-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
   display: flex;
   gap: 0.5rem;
   justify-content: flex-end;
-  margin-top: auto;
 }
 
-.note-actions .button {
-  padding: 0.5rem 1rem;
+/* Modal styles */
+.note-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-/* Note Editor */
-.note-editor-container {
-  max-width: 800px;
-  margin: 0 auto;
-   
+.note-modal.hidden {
+  display: none;
 }
 
-.note-editor {
+.modal-container {
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.note-header {
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
 }
 
-.note-title {
+.modal-header h2 {
+  margin: 0;
   font-size: 1.5rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  margin-right: 1rem;
+  color: #111827;
 }
 
-.note-content-editor {
-  width: 100%;
-  min-height: 500px;
-  padding: 1rem;
+.close-button {
+  background: none;
   border: none;
-  outline: none;
-  resize: none;
+  color: #6b7280;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.close-button:hover {
+  color: #111827;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-body .note-content {
+  -webkit-line-clamp: unset;
+  color: #111827;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .note-card {
+    background: #f3f4f6;
+  }
   
-}
-
-.button.secondary {
-  background: #e5e7eb;
-  color: #374151;
+  .note-preview h3 {
+    color: black;
+  }
+  
+  .note-content {
+    color: black;
+  }
+  
+  .modal-container {
+    background: black;
+  }
+  
+  .modal-header {
+    border-color: #374151;
+  }
+  
+  .modal-header h2 {
+    color: #f3f4f6;
+  }
+  
+  .close-button:hover {
+    color: #f3f4f6;
+  }
+  
+  .modal-body .note-content {
+    color: #e5e7eb;
+  }
 }
 
 /* Add to your existing styles */
@@ -796,4 +864,367 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+.editor-container {
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+}
+
+.editor-section, .preview-section {
+  flex: 1;
+  height: 100%;
+}
+
+.note-content-editor {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-family: ui-monospace, monospace;
+  line-height: 1.6;
+}
+
+.markdown-preview {
+  height: 100%;
+  min-height: 500px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow-y: auto;
+}
+
+/* Markdown Preview Styles */
+.markdown-preview h1 { font-size: 2em; margin-bottom: 0.5em; }
+.markdown-preview h2 { font-size: 1.5em; margin-bottom: 0.5em; }
+.markdown-preview h3 { font-size: 1.17em; margin-bottom: 0.5em; }
+.markdown-preview p { margin-bottom: 1em; }
+.markdown-preview code { 
+  background: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: ui-monospace, monospace;
+}
+.markdown-preview pre code {
+  display: block;
+  padding: 1em;
+  overflow-x: auto;
+}
+
+/* SimpleMDE overrides */
+.editor-container {
+  height: calc(100vh - 200px);
+}
+
+.CodeMirror {
+  height: 100% !important;
+}
+
+.editor-toolbar {
+  border-radius: 4px 4px 0 0;
+  border-color: #e5e7eb;
+}
+
+.CodeMirror {
+  border-radius: 0 0 4px 4px;
+  border-color: #e5e7eb;
+}
+
+.editor-preview, .editor-preview-side {
+  background: #fff;
+  padding: 1rem;
+}
+
+/* SimpleMDE Modal Styles */
+.note-editor-container .CodeMirror {
+  height: 400px;
+}
+
+.note-editor-container .editor-toolbar {
+  border-radius: 4px 4px 0 0;
+  border-color: #e5e7eb;
+}
+
+.note-editor-container .CodeMirror {
+  border-radius: 0 0 4px 4px;
+  border-color: #e5e7eb;
+}
+
+.note-editor-container .editor-preview,
+.note-editor-container .editor-preview-side {
+  background: #fff;
+  padding: 1rem;
+}
+
+.note-editor-container .form-group {
+  margin-bottom: 1rem;
+}
+
+.editor-split-view {
+  display: flex;
+  gap: 1rem;
+  height: 500px;
+}
+
+.editor-pane, .preview-pane {
+  flex: 1;
+  height: 100%;
+}
+
+.editor-pane .form-control {
+  height: 100%;
+  font-family: ui-monospace, monospace;
+  line-height: 1.6;
+  resize: none;
+}
+
+.preview-pane .markdown-preview {
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow-y: auto;
+  background: #fafafa;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.preview-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preview-toggle.active {
+  background-color: #e5e7eb;
+}
+
+.preview-toggle i {
+  font-size: 1rem;
+}
+
+/* Add these new styles */
+.editor-preview-container {
+  position: relative;
+  min-height: 400px;
+  margin-bottom: 1rem;
+}
+
+.editor-area,
+.preview-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.2s ease;
+}
+
+.preview-area {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preview-toggle {
+  margin-top: 1rem;
+}
+
+.preview-toggle.active {
+  background-color: #e5e7eb;
+}
+
+/* Make sure markdown preview content is visible */
+.markdown-preview {
+  color: #374151;
+  line-height: 1.6;
+}
+
+.markdown-preview > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-preview > *:last-child {
+  margin-bottom: 0;
+}
+
+.d-none {
+  display: none !important;
+}
+
+/* Modal styles */
+.modal-open {
+  overflow: hidden;
+}
+
+.note-show-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.modal-open .note-show-modal {
+  display: block;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #6b7280;
+}
+
+.close-button:hover {
+  color: #374151;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.modal-body .note-content {
+  line-height: 1.6;
+}
+
+/* Note popup styles */
+.note-preview {
+  cursor: pointer;
+}
+
+.note-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note-popup.hidden {
+  display: none;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.popup-content {
+  position: relative;
+  background: white;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.popup-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.popup-actions .button {
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+}
+
+.popup-actions .button:hover {
+  color: #374151;
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.popup-body {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.note-full-content {
+  line-height: 1.6;
 } 

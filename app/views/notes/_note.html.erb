@@ -1,8 +1,28 @@
-<div class="note-card">
-  <h3><%= note.title %></h3>
-  <div class="note-content">
-    <%= truncate(note.content, length: 150, separator: ' ') %>
+<div class="note-card" data-controller="note-modal">
+  <div class="note-preview" data-action="click->note-modal#open">
+    <h3><%= note.title %></h3>
+    <div class="note-content">
+      <%= render_markdown(truncate(note.content, length: 150, separator: ' ')) %>
+    </div>
   </div>
+
+  <div class="note-modal hidden" data-note-modal-target="modal">
+    <div class="modal-backdrop" data-action="click->note-modal#close"></div>
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><%= note.title %></h2>
+          <button type="button" class="close-button" data-action="note-modal#close">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="note-content">
+            <%= render_markdown(note.content) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="note-actions">
     <%= link_to edit_note_path(note),
                 class: "button",
