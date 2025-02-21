@@ -1,25 +1,25 @@
-class Api::V1::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
-  skip_before_action :verify_authenticity_token
-  
+class Api::V1::RegistrationsController < Api::V1::BaseController
   def create
-    build_resource(sign_up_params)
-
-    if resource.save
-      render json: {
-        status: { code: 200, message: 'Signed up successfully.' },
-        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
-      }
+    auth_hash = request.env['omniauth.auth']
+    
+    if auth_hash
+      user = User.find_or_create_by_oauth(auth_hash)
+      
+      if user.persisted?
+        session[:user_id] = user.id
+        render json: {
+          status: { code: 200, message: 'Signed in successfully.' },
+          data: user
+        }
+      else
+        render json: {
+          status: { message: "Authentication failed: #{user.errors.full_messages.join(', ')}" }
+        }, status: :unprocessable_entity
+      end
     else
       render json: {
-        status: { message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}" }
-      }, status: :unprocessable_entity
+        status: { message: 'Authentication data missing' }
+      }, status: :bad_request
     end
-  end
-
-  private
-
-  def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end 
