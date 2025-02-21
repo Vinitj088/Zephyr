@@ -6,3 +6,4 @@
 //= link controllers/note_modal_controller.js
 //= link controllers/debug_controller.js
 //= link_tree ../../../vendor/javascript .js
+//= link application.css
