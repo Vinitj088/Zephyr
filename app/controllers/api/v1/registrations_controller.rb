@@ -9,7 +9,12 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
         session[:user_id] = user.id
         render json: {
           status: { code: 200, message: 'Signed in successfully.' },
-          data: user
+          data: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            image_url: user.image_url
+          }
         }
       else
         render json: {
